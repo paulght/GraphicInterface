@@ -15,6 +15,8 @@ public class App extends Frame {
         Panel p1 = new Panel();
         p1.setPreferredSize(new Dimension(500, 500));
         p1.setLayout(new BorderLayout());
+        Label userChoice = new Label(shapes[0] + " selected");
+        p1.add(userChoice);
 
         Panel p2 = new Panel();
         p2.setLayout(new FlowLayout());
@@ -22,6 +24,13 @@ public class App extends Frame {
         for (int i = 0; i < shapes.length; i++) {
             cb.add(shapes[i]);
         }
+        ItemListener itemListener = new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                userChoice.setText(cb.getSelectedItem() + " selected");
+            }
+        }; // ItemListener is an interface, which is why we need to implement its method
+        cb.addItemListener(itemListener);
         p2.add(cb);
 
         add("North", p1);

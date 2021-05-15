@@ -12,14 +12,14 @@ public class App extends Frame {
         setTitle("Drawing Interface Paul Gahat");
         setLayout(new BorderLayout());
 
-        Panel p1 = new Panel();
-        p1.setPreferredSize(new Dimension(500, 500));
-        p1.setLayout(new BorderLayout());
+        Panel drawingPanel = new MyDrawingPanel();
+        drawingPanel.setPreferredSize(new Dimension(500, 500));
+        drawingPanel.setLayout(new BorderLayout());
         Label userChoice = new Label(shapes[0] + " selected");
-        p1.add(userChoice);
+//        drawingPanel.add(userChoice);
 
-        Panel p2 = new Panel();
-        p2.setLayout(new FlowLayout());
+        Panel comboBox = new Panel();
+        comboBox.setLayout(new FlowLayout());
         Choice cb = new Choice();
         for (int i = 0; i < shapes.length; i++) {
             cb.add(shapes[i]);
@@ -31,10 +31,10 @@ public class App extends Frame {
             }
         }; // ItemListener is an interface, which is why we need to implement its method
         cb.addItemListener(itemListener);
-        p2.add(cb);
+        comboBox.add(cb);
 
-        add("North", p1);
-        add("South", p2);
+        add("North", drawingPanel);
+        add("South", comboBox);
 
         pack();
         setVisible(true);

@@ -38,6 +38,13 @@ public class App extends Frame {
 
         pack();
         setVisible(true);
+
+        // Makes the app on the screen close when clicking on close
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
 
     public static void main(String[] args) {

@@ -1,33 +1,64 @@
 package paulgahat;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MyDrawingPanel extends Panel {
     private String selectedGraphicPrimitive = "outlined rectangle";
+    private Color selectedDrawColor = Color.BLACK;
+    private Color selectedFillColor = Color.BLACK;
+    private final ArrayList<GraphicPrimitive> graphicPrimitives = new ArrayList<>();
 
     public MyDrawingPanel() {
+        MyMouseListener myMouseListener = new MyMouseListener();
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
     }
     public void paint(Graphics g) {
         super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(new Color(31, 21, 1));
-        g2d.drawRect(200, 300, 90, 60);
-        switch (selectedGraphicPrimitive) {
-            case "outlined rectangle":
-                OutlinedRectangle outlinedRectangle = new OutlinedRectangle();
-                outlinedRectangle.drawIt(g);
-                break;
-            case "filled rectangle":
-                FilledRectangle filledRectangle = new FilledRectangle();
-                filledRectangle.drawIt(g);
-                break;
-            case "outlined oval":
-                OutlinedOval outlinedOval = new OutlinedOval();
-                outlinedOval.drawIt(g);
-                break;
-            default:
-                break;
+
+        for (GraphicPrimitive graphicPrimitive : graphicPrimitives) {
+            switch (graphicPrimitive.getGraphicType()) {
+                case "outlined rectangle":
+                    OutlinedRectangle outlinedRectangle = new OutlinedRectangle(graphicPrimitive);
+                    outlinedRectangle.drawIt(g);
+                    break;
+                case "filled rectangle":
+                    FilledRectangle filledRectangle = new FilledRectangle(graphicPrimitive);
+                    filledRectangle.drawIt(g);
+                    break;
+                case "outlined oval":
+                    OutlinedOval outlinedOval = new OutlinedOval(graphicPrimitive);
+                    outlinedOval.drawIt(g);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     void setSelectedGraphicPrimitive(String graphicPrimitive) { selectedGraphicPrimitive = graphicPrimitive; }
+
+    private class MyMouseListener extends MouseAdapter {
+        private Point start;
+        private Point end;
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            start = e.getPoint();
+
+            Dimension windowSize = getSize();
+            double startX = start.getX() / windowSize.getWidth();
+            double startY = start.getY() / windowSize.getHeight();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            end = e.getPoint();
+            GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, selectedDrawColor, selectedFillColor);
+            graphicPrimitives.add(currentGraphicPrimitive);
+            repaint();
+        }
+    }
 }

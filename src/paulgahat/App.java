@@ -1,5 +1,6 @@
 package paulgahat;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -20,23 +21,28 @@ public class App extends Frame {
         drawingPanel.setPreferredSize(new Dimension(500, 500));
         drawingPanel.setLayout(new BorderLayout());
 
-        Panel comboBox = new Panel();
-        comboBox.setLayout(new FlowLayout());
-        Choice cb = new Choice();
+        Panel choices = new Panel();
+        choices.setLayout(new FlowLayout());
+        Choice comboBox = new Choice();
         for (int i = 0; i < shapes.length; i++) {
-            cb.add(shapes[i]);
+            comboBox.add(shapes[i]);
         }
-        comboBox.add(cb);
+        choices.add(comboBox);
         ItemListener itemListener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                drawingPanel.setSelectedGraphicPrimitive(cb.getSelectedItem());
+                drawingPanel.setSelectedGraphicPrimitive(comboBox.getSelectedItem());
             }
         }; // ItemListener is an interface, which is why we need to implement its method
-        cb.addItemListener(itemListener);
+        comboBox.addItemListener(itemListener);
+
+        String chooseColor = "Choose color";
+        Button colorButton = new Button(chooseColor);
+        choices.add(colorButton);
+        colorButton.addActionListener((ActionEvent) -> drawingPanel.setSelectedColor(JColorChooser.showDialog(null, chooseColor, Color.BLACK)));
 
         add("North", drawingPanel);
-        add("South", comboBox);
+        add("South", choices);
 
         pack();
         setVisible(true);

@@ -1,14 +1,12 @@
 package paulgahat;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class MyDrawingPanel extends Panel {
     private String selectedGraphicPrimitive = "outlined rectangle";
-    private Color selectedDrawColor = Color.BLACK;
-    private Color selectedFillColor = Color.BLACK;
+    private Color selectedColor = Color.BLACK;
     private final ArrayList<GraphicPrimitive> graphicPrimitives = new ArrayList<>();
 
     public MyDrawingPanel() {
@@ -40,6 +38,8 @@ public class MyDrawingPanel extends Panel {
     }
     void setSelectedGraphicPrimitive(String graphicPrimitive) { selectedGraphicPrimitive = graphicPrimitive; }
 
+    void setSelectedColor(Color color) { selectedColor = color; }
+
     private class MyMouseListener extends MouseAdapter {
         private Point start;
         private Point end;
@@ -52,7 +52,7 @@ public class MyDrawingPanel extends Panel {
         @Override
         public void mouseReleased(MouseEvent e) {
             end = e.getPoint();
-            GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, start, end, selectedDrawColor, selectedFillColor);
+            GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, start, end, selectedColor);
             graphicPrimitives.add(currentGraphicPrimitive);
             repaint();
         }

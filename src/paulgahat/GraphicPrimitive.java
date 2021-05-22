@@ -8,13 +8,11 @@ public class GraphicPrimitive {
     private final int width;
     private final int height;
     private final String graphicType;
-    private final Color drawColor;
-    private final Color fillColor;
+    private final Color color;
 
-    public GraphicPrimitive(String graphicType, Point start, Point end, Color drawColor, Color fillColor) {
+    public GraphicPrimitive(String graphicType, Point start, Point end, Color color) {
         this.graphicType = graphicType;
-        this.drawColor = drawColor;
-        this.fillColor = fillColor;
+        this.color = color;
         this.startx = (int) Math.min(start.getX(), end.getX());
         this.starty = (int) Math.min(start.getY(), end.getY());
         this.width = (int) Math.abs(end.getX() - start.getX());
@@ -25,12 +23,8 @@ public class GraphicPrimitive {
         return graphicType;
     }
 
-    public Color getDrawColor() {
-        return drawColor;
-    }
-
-    public Color getFillColor() {
-        return fillColor;
+    public Color getColor() {
+        return color;
     }
 
     public int getStartx() {

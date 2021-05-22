@@ -3,7 +3,7 @@ package paulgahat;
 import java.awt.*;
 
 public class OutlinedOval implements GraphicsShape {
-    private GraphicPrimitive graphicPrimitive;
+    private final GraphicPrimitive graphicPrimitive;
 
     public OutlinedOval(GraphicPrimitive graphicPrimitive) {
         this.graphicPrimitive = graphicPrimitive;
@@ -13,6 +13,6 @@ public class OutlinedOval implements GraphicsShape {
     public void drawIt(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(graphicPrimitive.getDrawColor());
-        g2d.drawOval(100, 75, 90, 60);
+        g2d.drawOval(graphicPrimitive.getStartx(), graphicPrimitive.getStarty(), graphicPrimitive.getWidth(), graphicPrimitive.getHeight());
     }
 }

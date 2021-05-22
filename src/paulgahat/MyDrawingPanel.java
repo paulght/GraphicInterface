@@ -47,16 +47,12 @@ public class MyDrawingPanel extends Panel {
         @Override
         public void mousePressed(MouseEvent e) {
             start = e.getPoint();
-
-            Dimension windowSize = getSize();
-            double startX = start.getX() / windowSize.getWidth();
-            double startY = start.getY() / windowSize.getHeight();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
             end = e.getPoint();
-            GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, selectedDrawColor, selectedFillColor);
+            GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, start, end, selectedDrawColor, selectedFillColor);
             graphicPrimitives.add(currentGraphicPrimitive);
             repaint();
         }

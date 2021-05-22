@@ -3,7 +3,7 @@ package paulgahat;
 import java.awt.*;
 
 public class FilledRectangle implements GraphicsShape {
-    private GraphicPrimitive graphicPrimitive;
+    private final GraphicPrimitive graphicPrimitive;
 
     public FilledRectangle(GraphicPrimitive graphicPrimitive) {
         this.graphicPrimitive = graphicPrimitive;
@@ -13,6 +13,6 @@ public class FilledRectangle implements GraphicsShape {
     public void drawIt(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(graphicPrimitive.getFillColor());
-        g2d.fillRect(100, 150, 90, 60);
+        g2d.fillRect(graphicPrimitive.getStartx(), graphicPrimitive.getStarty(), graphicPrimitive.getWidth(), graphicPrimitive.getHeight());
     }
 }

@@ -1,13 +1,15 @@
 package paulgahat;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class MyDrawingPanel extends Panel {
     private String selectedGraphicPrimitive = "outlined rectangle";
     private Color selectedColor = Color.BLACK;
-    private final ArrayList<GraphicPrimitive> graphicPrimitives = new ArrayList<>();
+    // We declare the array containing the drawn primitives
+    private GraphicPrimitive[] graphicPrimitives = new GraphicPrimitive[0];
 
     public MyDrawingPanel() {
         MyMouseListener myMouseListener = new MyMouseListener();
@@ -40,6 +42,13 @@ public class MyDrawingPanel extends Panel {
 
     void setSelectedColor(Color color) { selectedColor = color; }
 
+    public void dumpGraphicPrimitives() {
+        System.out.println(graphicPrimitives.length + " graphic primitives were drawn :");
+        for (GraphicPrimitive graphicPrimitive : graphicPrimitives) {
+            System.out.println(graphicPrimitive.toString());
+        }
+    }
+
     private class MyMouseListener extends MouseAdapter {
         private Point start;
         private Point end;
@@ -53,8 +62,14 @@ public class MyDrawingPanel extends Panel {
         public void mouseReleased(MouseEvent e) {
             end = e.getPoint();
             GraphicPrimitive currentGraphicPrimitive = new GraphicPrimitive(selectedGraphicPrimitive, start, end, selectedColor);
-            graphicPrimitives.add(currentGraphicPrimitive);
+            addGraphicPrimitiveToArray(currentGraphicPrimitive);
             repaint();
         }
+    }
+
+    private void addGraphicPrimitiveToArray(GraphicPrimitive graphicPrimitiveToAdd) {
+        GraphicPrimitive[] newGraphicPrimitivesArray = Arrays.copyOf(graphicPrimitives, graphicPrimitives.length + 1);
+        newGraphicPrimitivesArray[newGraphicPrimitivesArray.length - 1] = graphicPrimitiveToAdd;
+        graphicPrimitives = newGraphicPrimitivesArray;
     }
 }

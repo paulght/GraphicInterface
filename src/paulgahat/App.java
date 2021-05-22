@@ -6,11 +6,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
 
 public class App extends Frame {
-    private final String[] shapes = new String[] {
-            "outlined rectangle", "filled rectangle", "outlined oval" };
     private final MyDrawingPanel drawingPanel;
 
     public App () {
@@ -24,9 +21,9 @@ public class App extends Frame {
         Panel choices = new Panel();
         choices.setLayout(new FlowLayout());
         Choice comboBox = new Choice();
-        for (int i = 0; i < shapes.length; i++) {
-            comboBox.add(shapes[i]);
-        }
+        comboBox.add("outlined rectangle");
+        comboBox.add("filled rectangle");
+        comboBox.add("outlined oval");
         choices.add(comboBox);
         ItemListener itemListener = new ItemListener() {
             @Override
@@ -40,6 +37,10 @@ public class App extends Frame {
         Button colorButton = new Button(chooseColor);
         choices.add(colorButton);
         colorButton.addActionListener((ActionEvent) -> drawingPanel.setSelectedColor(JColorChooser.showDialog(null, chooseColor, Color.BLACK)));
+
+        Button exportButton = new Button("Print graphic content");
+        choices.add(exportButton);
+        exportButton.addActionListener((ActionEvent) -> drawingPanel.dumpGraphicPrimitives());
 
         add("North", drawingPanel);
         add("South", choices);
@@ -57,6 +58,5 @@ public class App extends Frame {
 
     public static void main(String[] args) {
         App app = new App();
-        System.out.println("Allowed Graphic Primitives : " + Arrays.toString(app.shapes));
     }
 }

@@ -42,4 +42,16 @@ public class GraphicPrimitive {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return "GraphicPrimitive{" +
+                "startx=" + startx +
+                ", starty=" + starty +
+                ", width=" + width +
+                ", height=" + height +
+                ", graphicType='" + graphicType + '\'' +
+                ", color=" + color +
+                '}';
+    }
 }

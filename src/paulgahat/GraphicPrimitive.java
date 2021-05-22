@@ -15,10 +15,10 @@ public class GraphicPrimitive {
         this.graphicType = graphicType;
         this.drawColor = drawColor;
         this.fillColor = fillColor;
-        this.startx = (int) start.getX();
-        this.starty = (int) start.getY();
-        this.width = (int) (end.getX() - start.getX());
-        this.height = (int) (end.getY() - start.getY());
+        this.startx = (int) Math.min(start.getX(), end.getX());
+        this.starty = (int) Math.min(start.getY(), end.getY());
+        this.width = (int) Math.abs(end.getX() - start.getX());
+        this.height = (int) Math.abs(end.getY() - start.getY());
     }
 
     public String getGraphicType() {
